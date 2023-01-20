@@ -1,13 +1,19 @@
 from django.db import models
-from django.urls import reverse 
+from django.urls import reverse
 
 from model_utils import Choices
 from accounts.models import Company
 
-'''
-Model for an opportunity
-'''
-class Opportunity(models.Model):    
+from gsheets import mixins
+
+
+class Opportunity(mixins.SheetSyncableMixin, models.Model):
+    '''
+    Model for an opportunity
+    '''
+    spreadsheet_id = '1xQdwE8OyFo09mv8KnW50nCUxzXcPG9BC0MhAOCTYZ5s'
+    sheet_name = 'Opportunities'
+
     role = models.CharField(max_length=40)
 
     OPP_STATUS = (
@@ -19,8 +25,8 @@ class Opportunity(models.Model):
     status = models.CharField(
         max_length=20,
         choices=OPP_STATUS,
-        null=True, # Allows null values
-        blank=True, # Allows null values in your forms including the admin page
+        null=True,  # Allows null values
+        blank=True,  # Allows null values in your forms including the admin page
         help_text='Opportunity status',
     )
 
@@ -30,16 +36,19 @@ class Opportunity(models.Model):
 
     OPPORTUNITY_TYPES = Choices('INTERNSHIP', 'ACADEME', 'EMPLOYMENT')
 
-    opportunity_type = models.CharField(choices=OPPORTUNITY_TYPES, max_length=40)
+    opportunity_type = models.CharField(
+        choices=OPPORTUNITY_TYPES, max_length=40)
 
     duration = models.CharField(max_length=40)
-    
+
     description = models.TextField(
         default="Insert description here"
     )
-    
-#    company = models.ForeignKey(Company, on_delete=models.SET_NULL) # NULL will set the opportunities' 'company' field to null if their related company is deleted 
-    company = models.ForeignKey(Company, on_delete=models.CASCADE) # CASCADE will delete all opportunities if their related company is deleted
+
+    company_name = models.CharField(max_length=40)
+#    company = models.ForeignKey(Company, on_delete=models.SET_NULL) # NULL will set the opportunities' 'company' field to null if their related company is deleted
+    # CASCADE will delete all opportunities if their related company is deleted
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
 
     # String representation of the model
     def __str__(self):
@@ -48,7 +57,8 @@ class Opportunity(models.Model):
     # Returns url for opportunity page with the primary key 'pk' as argument
     def get_absolute_url(self):
         # return reverse('opportunity', args=[str(self.id)])
-        return reverse('opportunity', kwargs={'pk' : self.id}) # Using keyword arguments to supply the URL arguments
+        # Using keyword arguments to supply the URL arguments
+        return reverse('opportunity', kwargs={'pk': self.id})
 
     # Returns url for updating an opportunity page with the primary key 'pk' as argument
     # Note that this function is not used since passing of arguments is done in the opportunity.html template
@@ -63,12 +73,13 @@ class Opportunity(models.Model):
         return reverse('opportunity-delete', args=[str(self.id)])
 
     class Meta:
-        ordering = ['role'] # Sort by role (alphabetically)
+        ordering = ['role']  # Sort by role (alphabetically)
         verbose_name_plural = 'Opportunities'
-        
+
         # Adding custom permissions
         permissions = (
             ("can_add_opportunity", "Add opportunity"),
             ("can_edit_opportunity", "Edit opportunity"),
             ("can_delete_opportunity", "Delete opportunity"),
-        ) 
+        )
+
