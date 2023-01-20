@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1> Hello 
+        {% if user.is_authenticated %}
+            {{ user.username }}!
+        {% else %}
+            {% for name in names %} {{ name }}{% endfor %}!
+        {% endif %}
+    </h1>
+    <h5> Number of opportunities: {{num_opportunities}} </h5>
+    <h5> Number of internships: {{num_internships}} </h5>
+{% endblock %}

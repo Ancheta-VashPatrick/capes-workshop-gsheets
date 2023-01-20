@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'opportunities.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="opps-cards-flexbox">
+    {% for opportunity in opportunities %}
+        <div class="opps-card-container">
+            <a href="{{ opportunity.get_absolute_url }}">
+                <div class="card opps-card hvr-float">
+
+                    <span class="card-ribbon {{ opportunity.status.lower }}">{{ opportunity.status.upper }}</span>
+                    <div class="card-ribbon-triangle {{ opportunity.status.lower }}"></div>
+
+                    <div class="opps-identifier">
+                        <div class="opps-title"> {{ opportunity.role }} </div>
+                        <div class="company-name">{{ opportunity.company.name }}</div> 
+                    </div>
+
+                    <div class="opps-details">
+                            <div class ="label">Duration:</div> 
+                            <div>{{ opportunity.duration }}</div>
+                            <div class="label">Location:</div> 
+                            <div>{{ opportunity.location }}</div>
+                    </div>
+
+                    <div class="opps-tag {% if opportunity.status == 'Expired' %}expired{% else %}{{ opportunity.opportunity_type.lower }} {% endif %}"> {{ opportunity.opportunity_type }} </div>
+
+                    <div class="img-circle-container">
+                        <div class="img-container">
+                            <img class="lazyload" src="{% if opportunity.company.logo %}{{ opportunity.company.logo.url }}{% else %}{% static 'capes.png' %}{% endif %}" alt="company-logo">
+                        </div>
+                    </div>
+
+                </div>
+            </a>
+        </div>
+    {% endfor %}
+    </div>
+    {% if page_obj %} 
+        {% comment %}           
+        <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+                <span class="page-current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+                {% endif %}
+            </span>
+        </div>
+        {% endcomment %}
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+
+                <a class="page-link" href="{{ request.path }}?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Previous</span>
+                </a>
+            </li>
+            {% endif %}
+            
+            {% for page_number in paginator.page_range %}
+            <li class="page-item {% if page_number == page_obj.number %}active{% endif %}"><a class="page-link" href="{{ request.path }}?page={{ page_number }}">{{ page_number }}</a></li>
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="{{ request.path }}?page={{ page_obj.next_page_number }}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only">Next</span>
+                </a>
+            </li>
+            {% endif %}
+            </ul>
+        </nav>
+    {% endif %}
+    {% if perms.oportal.can_add_opportunity %}
+        <div><a href="{% url 'opportunity-create' %}">Add Opportunity</a></div>
+    {% endif %}
+{% endblock %}

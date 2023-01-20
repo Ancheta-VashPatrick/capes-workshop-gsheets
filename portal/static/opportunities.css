@@ -1,0 +1,160 @@
+/* Opportunities Cards Container CSS */
+.opps-cards-flexbox{
+    display:flex;
+    flex-wrap: wrap;
+}
+.opps-cards-flexbox .opps-card-container{
+    flex: 1;
+    margin: 20px auto;
+}
+
+
+/* Opportunities Cards CSS */
+.card.opps-card{
+    display: block;
+    position: relative;
+    margin: 0 auto;
+    width: 377px;
+    height: 263px;
+    background-color: #F5F5F5;
+    color: #333333;
+    overflow: hidden;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
+    border-radius: 30px 0px;
+}
+
+.opps-card .card-ribbon-triangle{
+    background-color: #F5F5F5;
+    width: 24px;
+    height: 24px;
+    transform: rotate(45deg);
+    position: absolute;
+    top: 18px;
+}
+
+.opps-card .card-ribbon-triangle.new{
+    left: 260px;
+}
+
+.opps-card .card-ribbon-triangle.closing{
+    left: 130px;
+}
+
+.opps-card .card-ribbon-triangle.expired{
+    left: 210px;
+}
+
+.opps-card .card-ribbon{
+    font-weight: 700;
+    font-size: 24px;
+    text-align: right;
+    vertical-align: auto;
+    line-height: 24px;
+    padding: 0px 4px;
+    height: 24px;
+    position: absolute;
+    top: 18px;
+}
+
+.opps-card .card-ribbon.new{
+    background-color: #EA4335;
+    color: #F5F5F5;
+    left: 270px;
+    width: 105.55px;
+}
+
+.opps-card .card-ribbon.closing{
+    background-color: #FFCB1D;
+    color: rgba(0, 0, 0, 0.25);
+    left: 135px;
+    width: 240px;
+}
+
+.opps-card .card-ribbon.expired{
+    background-color: rgba(0, 0, 0, 0.25);
+    color: #F5F5F5;
+    left: 225px;
+    width: 150px;
+}
+
+.opps-card .opps-identifier{
+    position: absolute;
+    top: 50px;
+    left: 19px;
+}
+
+.opps-card .opps-title{
+     font-size: 28px;
+     font-weight: 900;
+     text-decoration: underline 3px #FFCB1D;
+     text-underline-offset: 5px;
+}
+
+.opps-card .company-name{
+    font-size: 24px;
+    opacity: 0.5;
+    font-weight: bold;
+}
+
+.opps-card .opps-details{
+    position: absolute;
+    top: 135px;
+    left: 19px;
+}
+
+.opps-card .label{
+    font-size: 10px;
+}
+
+.opps-card .opps-tag{
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    color: #FFFFFF;
+    width: 112px;
+    height: 22px;
+    position: absolute;
+    top:229px;
+    left: 19px;
+}
+
+.opps-card .opps-tag.internship{
+    background-color: #34A853;
+}
+
+.opps-card .opps-tag.academe{
+    background-color: #FFE077;
+    color: #333333;
+}
+
+.opps-card .opps-tag.employment{
+    background-color: #54A8FF;
+}
+
+.opps-card .opps-tag.expired{
+    background-color: rgba(80,74,54, 0.25);
+}
+
+.opps-card .img-circle-container{
+    position: absolute; 
+    top: 90px; 
+    margin: 0px;
+    left: 215px; 
+    overflow:hidden; 
+    background-color: #FFFFFF; 
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
+    border-radius: 322px; 
+    width: 322px; 
+    height: 322px;
+}
+
+.opps-card .img-circle-container .img-container{
+    position: relative; 
+    top: 40px;
+    left: 40px;
+}
+
+.opps-card img{
+    max-height: 100px;
+    max-width: 240px;
+}

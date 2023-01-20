@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h3>Delete the opportunity: "{{ opportunity }}"?</h3>
+
+<form action="" method="POST">
+  {% csrf_token %}
+  <input type="submit" value="Delete">
+</form>
+
+{% endblock %}

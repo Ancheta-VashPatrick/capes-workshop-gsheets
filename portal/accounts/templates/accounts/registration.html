@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block stylesheet %}
+<style>
+  .fields{
+    width: 500px;
+  }
+  .fields div {
+    display: flex;
+  }
+  .fields div label{
+    flex: 1;
+  }
+  .fields div input {
+    flex: 2;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>Registration</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="form-wrapper">
+          <div class="fields">
+              <div>
+                <label for="{{ form.username.id_for_label }}"> Username: </label>
+                {{ form.username }}
+              </div>
+              <div>
+                <label for="{{ form.password.id_for_label }}"> Password: </label>
+                {{ form.password }}
+              </div>
+              <div>
+                <label for="{{ form.confirm_password.id_for_label }}"> Confirm Password: </label>
+                {{ form.confirm_password }}
+              </div>
+          </div>
+        </div>
+        {% comment %}
+        {{ form.errors }}
+        {% endcomment %}
+        {{ form.username.errors }}
+        {{ form.non_field_errors }}
+        <input type="submit" value="Submit">
+        {% if form.is_valid %}
+          <div>Successfully created a new account!!!</div>
+        {% endif %}
+  </form>
+{% endblock %}

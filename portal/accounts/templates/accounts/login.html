@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'login.css' %}">
+{% endblock %}
+
+{% block content %}
+
+	{% if next %}
+		{% if user.is_authenticated %}
+			<p>Your account doesn't have access to this page. To proceed, please login with an account that has access.</p>
+		{% else %}
+	<p>Please login to see this page.</p>
+		{% endif %}
+	{% endif %}
+
+	<form action="" method="post">
+		{% csrf_token %}
+		<div class="form-wrapper">
+			<div class="fields">
+
+				<div>
+					<label for="{{ form.username.id_for_label }}"> Username: </label>
+					{{ form.username }}
+				</div>
+				<div>
+					<label for="{{ form.password.id_for_label }}"> Password: </label>
+					{{ form.password }}
+				</div>
+			</div>
+
+			{{ form.remember }}
+			{{ form.remember.label }}
+			
+			<a href="#">Forgot Password?</a>
+			<div class="status" style="visibility: {% if form.errors or form.is_valid %} visible {% else %} hidden {% endif %}; background-color:{% if form.errors %}pink{% elif form.is_valid %}lightgreen;{% endif %}"> {% if form.errors %}Invalid login details{% elif form.is_valid %}Successfully logged in{% endif %}</div>
+			<input type="submit" name="login" value="Login" id="login">
+		</div>
+	</form>
+	{{ form.username.errors }}
+{% endblock %}
+
+{% block scripts %}
+	<script src="{% static 'login.js' %}"></script>
+{% endblock %}

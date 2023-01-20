@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Role: {{ opportunity.role }}</h1>
+
+  <p><strong>Company:</strong> {{ opportunity.company.name }} </p>
+  <p><strong>Opportunity Type:</strong> {{ opportunity.opportunity_type }}</p>
+  <p><strong>Description:</strong> {{ opportunity.description }} </p>
+
+  {% if user == opportunity.company.user and perms.oportal.can_edit_opportunity and perms.oportal.can_delete_opportunity %}
+    <p><a href="{% url 'opportunity-update' pk=opportunity.id %}">Edit Opportunity</a></p>
+    <p><a href="{% url 'opportunity-delete' pk=opportunity.id %}">Delete Opportunity</a></p>
+  {% endif%}
+{% endblock %}
