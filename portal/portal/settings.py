@@ -143,5 +143,5 @@ LOGIN_URL = '/accounts/login/'
 
 # Django Google Sheets
 GSHEETS = {
-    'CLIENT_SECRETS': '/portal/credentials.json',
+    'CLIENT_SECRETS': 'static/credentials.json',
 }
