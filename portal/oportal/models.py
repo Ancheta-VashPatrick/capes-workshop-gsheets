@@ -45,7 +45,7 @@ class Opportunity(mixins.SheetSyncableMixin, models.Model):
         default="Insert description here"
     )
 
-    company_name = models.CharField(max_length=40)
+    company_name = models.CharField(max_length=40, null=True)
 #    company = models.ForeignKey(Company, on_delete=models.SET_NULL) # NULL will set the opportunities' 'company' field to null if their related company is deleted
     # CASCADE will delete all opportunities if their related company is deleted
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
